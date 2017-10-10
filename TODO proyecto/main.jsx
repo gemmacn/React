@@ -9,32 +9,30 @@ class App extends React.Component {
 		}
 	}
 
-	handleEnterPress =(e) => {
-		if (e.key.toLowerCase() === 'enter') {
-			const text = e.target.value
+				handleEnterPress =(e) => {
+					if (e.key.toLowerCase() === 'enter') {
+						const text = e.target.value
 
-			if (!text.length)
-           		return;
+						if (!text.length)
+			           		return;
 
-	        const item = {
-	            id: Date.now(),
-	            text: text,
-	            done: false
-	        }
+				        const item = {
+				            id: Date.now(),// aixi em genera com un id dinámic
+				            text: text,
+				            done: false
+				        }
 
-	        this.setState(function(prevState) {
-	            return {
-	                items: prevState.items.concat(item)
-	            }
-	        })
-		}
-	}
+				        this.setState(function(prevState) {
+				            return {
+				                items: prevState.items.concat(item)
+				            }
+				        })
+					}
+				}
 handleChange=()=>{
 	var checked=event.target.checked
 	item.done=true
-	if(item.done===true){
-
-	}
+	
 	console.log('checked')
 }
 
@@ -51,7 +49,11 @@ handleChange=()=>{
 									/>
 								</div>
 								<div className="col-md-6">
-									<DoneList/>
+									<DoneList
+									handleChange={this.handleChange}
+
+									/>
+									
 								</div>
 							</div>
 						</div>)
@@ -89,12 +91,23 @@ class TodoList extends React.Component {
 }
 
 class DoneList extends React.Component {
+		constructor(props) {
+		super(props);
+		
+	}
+
 	render(){
+
 		return(
 					<div className="DoneList">
 						<h1>Already Done</h1>
 						 <ul id="done-items" className="list-unstyled">
-
+						 	{this.props.items.map((item)=>{
+						 		if (item.done===true){
+						 		return <li key={item.id}>{item.text}</li>
+						 	}
+						 	}
+						 	)}
 
 
 
